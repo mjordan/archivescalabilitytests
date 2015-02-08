@@ -10,7 +10,7 @@ if (count($argv) < 4) {
  */
 $type = $argv[1];
 $input_dir = $argv[2];
-$output_file = $argv[3];
+$output_file = trim($argv[3]);
 $log_file = 'archivescalabilitytests_log.txt';
 
 require 'utilities.inc';
@@ -25,11 +25,16 @@ switch ($type) {
     require 'ZipArchive.inc';
     create_archive_zip($input_dir, $output_file);
     break;
-  case 'Archive_Tar':
+  case 'ArchiveTar':
+    require 'ArchiveTar.inc';
+    create_archive_zip($input_dir, $output_file);
+    break;
+  case 'PharTarGz':
+    require 'PharTarGz.inc';
     create_archive_zip($input_dir, $output_file);
     break;
   default:
-    "Sorry, I don't recognize that type of archive\n";
+    print "Sorry, I don't recognize that type of archive\n";
     exit();
 }
 
